@@ -16,7 +16,7 @@ object Problem5 extends App {
 
   val divisiors = (11 to 20).toList
 
-  println(Iterator.from(20, 20).dropWhile(!allRemindersEqualsZero(_)).next)
+  println(Iterator.from(start = 20, step = 20).dropWhile(!allRemindersEqualsZero(_)).next)
 
   def allRemindersEqualsZero(dividend: Num) =
     divisiors.dropWhile(dividend % _ == 0).isEmpty

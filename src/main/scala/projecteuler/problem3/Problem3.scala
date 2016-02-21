@@ -12,6 +12,7 @@ package projecteuler.problem3
   */
 object Problem3 extends App {
 
+  println(primes.take(10).toList)
   println(factors(600851475143L).last)
 
   type Num = Long
@@ -27,7 +28,7 @@ object Problem3 extends App {
   def primes: Stream[Num] = primes(numbers)
 
   def primes(numbers: Stream[Num]): Stream[Num] =
-    Stream.cons(numbers.head, numbers.tail.filter(_ % numbers.head != 0))
+    Stream.cons(numbers.head, primes(numbers.tail.filter(_ % numbers.head != 0)))
 
   def numbers: Stream[Num] = numbers(2)
 

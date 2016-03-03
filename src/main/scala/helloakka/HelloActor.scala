@@ -1,7 +1,11 @@
 package helloakka
 
-//import
-//
-//class HelloActor extends Actor {
-//
-//}
+import akka.actor._
+
+class HelloActor extends Actor {
+
+  def receive = {
+null
+  }
+
+}

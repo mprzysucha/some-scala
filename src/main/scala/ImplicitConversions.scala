@@ -4,7 +4,7 @@
   */
 object ImplicitConversions {
 
-  implicit def stringToBigDecimal(x: String): BigDecimal = new BigDecimal(new java.math.BigDecimal(x))
+  implicit def stringToBigDecimal(x: String): BigDecimal = BigDecimal.apply(x)
 
   //  implicit def stringToInteger(x: String): Integer = x.length
 
@@ -12,8 +12,7 @@ object ImplicitConversions {
 
   def abc(b: Integer) = b + 2
 
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit =
     println(abc("5"))
-  }
 
 }

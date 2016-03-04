@@ -8,10 +8,10 @@ import scala.math.{abs, sqrt}
   */
 object Problem66 extends App {
 
-  type Tripe = Tuple3[BigInt, BigInt, BigInt]
-  type Solution = Tuple2[Int, BigInt]
-
   val maxD = 1000
+  type Tripe = (BigInt, BigInt, BigInt)
+  type Solution = (Int, BigInt)
+
   println(
     Iterator.from(2).take(maxD - 1).filter(sqrt(_) % 1 > 0)
       .map(d => new Solution(d, solve(d)))
@@ -24,7 +24,11 @@ object Problem66 extends App {
   }
 
   def newValues(a: BigInt, b: BigInt, k: BigInt, n: BigInt, m: BigInt): Tripe =
-    Tuple3((a * m + n * b) / k.abs, (a + b * m) / k.abs, (m * m - n) / k)
+    Tuple3(
+      (a * m + n * b) / k.abs,
+      (a + b * m) / k.abs,
+      (m * m - n) / k
+    )
 
   def findM(a: BigInt, b: BigInt, k: BigInt, n: Int): BigInt =
     bigIntStream(BigInt.apply(abs(sqrt(4 * n) / 2).toLong)).filter(m => (a + b * m) % k == 0 && (m * m - n) % k == 0).head

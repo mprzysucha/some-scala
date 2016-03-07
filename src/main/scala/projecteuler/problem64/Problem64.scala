@@ -3,22 +3,24 @@ package projecteuler.problem64
 import scala.math.sqrt
 
 /**
+  * The solution to Project Euler Problem 64 - Odd period square roots
+  *
+  * https://projecteuler.net/problem=64
+  *
   * @author Michal Przysucha
   */
 object Problem64 extends App {
 
-
   val periods = for (n <- 2 to 10000 if (sqrt(n) % 1 != 0)) yield find(n)
-
   println(periods.toList.filter(x => x % 2 != 0).size)
 
   def find(n: Long): Int = {
-    var m = Map.empty[Triple, Int]
-    for (t <- triples(n))
-      if (m contains t) return m get t get
-      else m = (m + (t -> 0)).mapValues(x => x + 1)
-    return 0
+    find(triples(n), Map.empty[Triple, Int])
   }
+
+  def find(ts: Stream[Triple], m: Map[Triple, Int]): Int =
+    if (m contains ts.head) m get ts.head get
+    else find(ts.tail, (m + (ts.head -> 0)).mapValues(x => x + 1))
 
   type Triple = Tuple3[Long, Long, Long]
 

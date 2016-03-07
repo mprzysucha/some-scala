@@ -14,14 +14,14 @@ object Problem64 extends App {
   val periods = for (n <- 2 to 10000 if (sqrt(n) % 1 != 0)) yield find(n)
   println(periods.toList.filter(x => x % 2 != 0).size)
 
+  type Triple = Tuple3[Long, Long, Long]
+
   def find(n: Long): Int =
     find(triples(n), Map.empty[Triple, Int])
 
   def find(ts: Stream[Triple], m: Map[Triple, Int]): Int =
     if (m contains ts.head) m get ts.head get
     else find(ts.tail, (m + (ts.head -> 0)).mapValues(x => x + 1))
-
-  type Triple = Tuple3[Long, Long, Long]
 
   def triples(n: Long): Stream[Triple] = {
     val s1 = sqrt(n).toLong

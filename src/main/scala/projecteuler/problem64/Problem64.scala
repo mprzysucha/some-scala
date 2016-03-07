@@ -14,9 +14,8 @@ object Problem64 extends App {
   val periods = for (n <- 2 to 10000 if (sqrt(n) % 1 != 0)) yield find(n)
   println(periods.toList.filter(x => x % 2 != 0).size)
 
-  def find(n: Long): Int = {
+  def find(n: Long): Int =
     find(triples(n), Map.empty[Triple, Int])
-  }
 
   def find(ts: Stream[Triple], m: Map[Triple, Int]): Int =
     if (m contains ts.head) m get ts.head get

@@ -1,19 +1,18 @@
-name := "somescala"
+scalaVersion := "2.12.13"
+version      := "0.1"
 
-version := "1.0"
-
-scalaVersion := "2.11.7"
-
-libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-actor" % "2.4.1"
-  ,"org.apache.spark" % "spark-mllib_2.11" % "1.6.0"
-  ,"org.apache.spark" % "spark-core_2.11" % "1.6.0"
-//  ,"com.typesafe.akka" %% "akka-remote" % "2.4.1"
-)
-
-resolvers ++= Seq(
-  "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"
-  ,"Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
-  ,"Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
-//  ,"Spray repository" at "http://repo.spray.io"
-)
+lazy val hello = (project in file("."))
+  .settings(
+    name := "somescala",
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-actor"       % "2.6.16",
+      "com.typesafe.akka" %% "akka-remote"      % "2.6.16",
+      "org.apache.spark"  %% "spark-mllib"      % "3.1.2",
+      "org.apache.spark"  %% "spark-core"       % "3.1.2",
+      "dev.zio"           %% "zio"              % "1.0.12",
+      "org.typelevel"     %% "cats-core"        % "2.6.1",
+      "org.typelevel"     %% "cats-free"        % "2.6.1",
+      "dev.zio"           %% "zio-interop-cats" % "2.5.1.0"
+    ),
+    addCompilerPlugin("org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full)
+  )

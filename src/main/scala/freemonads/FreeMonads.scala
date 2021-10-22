@@ -4,7 +4,7 @@ import cats.arrow.FunctionK
 import cats.free.Free
 import cats.~>
 import cats.implicits._
-import freemonads.Operations.{Op1, Operations}
+import freemonads.Algebra.{Op1, Operations}
 import zio.Task
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,7 +16,7 @@ object FreeMonads {
 
   def main(args: Array[String]): Unit = {
 
-    val op1Free: Free[Operations, String] = Operations.op1(5)
+    val op1Free: Free[Operations, String] = Algebra.op1(5)
 
     val op1ResF: Future[String] = op1Free.foldMap(Transformers.toFuture)
     val op1ResFKP: Future[String] = op1Free.foldMap(Transformers.toFutureKindProjector)
@@ -44,7 +44,7 @@ object FreeMonads {
 
 }
 
-object Operations {
+object Algebra {
 
   sealed trait Operations[T]
   final case class Op1(i: Int) extends Operations[String]

@@ -1,5 +1,0 @@
-package hellospark
-
-object SampleSVM {
-
-}

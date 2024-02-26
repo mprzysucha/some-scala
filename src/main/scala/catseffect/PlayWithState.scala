@@ -17,7 +17,7 @@ object State {
 
 object PlayWithState extends IOApp {
 
-  def sigmoid(s: IO[State]) = {
+  def relu(s: IO[State]) = {
     Monad[IO].ifElseM(
       s.map(_.num > 0) -> s
     )(
@@ -25,15 +25,15 @@ object PlayWithState extends IOApp {
     )
   }
 
-  def displaySigmoid(x: IO[State], y: IO[State]) = {
+  def displayRelu(x: IO[State], y: IO[State]) = {
     (x, y).flatMapN { (x, y) =>
-      IO.println(s"sigmoid(${x.num}): ${y.num}")
+      IO.println(s"relu(${x.num}): ${y.num}")
     }
   }
 
   def process(s: IO[State]) = {
     for {
-      state <- sigmoid(s)
+      state <- relu(s)
       original <- s
       _ <- IO.println(s"Going to sleep ${original.num.abs.seconds} seconds")
       _ <- IO.sleep(original.num.abs.seconds)
@@ -44,9 +44,9 @@ object PlayWithState extends IOApp {
       stateRef <- Ref.of[IO, State](State.zero)
       _ <- stateRef.update(_.add(3))
       newState <- process(stateRef.get)
-      _ <- displaySigmoid(stateRef.get, IO.pure(newState))
+      _ <- displayRelu(stateRef.get, IO.pure(newState))
       _ <- stateRef.update(_.subtract(7))
       newState <- process(stateRef.get)
-      _ <- displaySigmoid(stateRef.get, IO.pure(newState))
+      _ <- displayRelu(stateRef.get, IO.pure(newState))
     } yield ExitCode.Success
 }

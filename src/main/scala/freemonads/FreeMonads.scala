@@ -4,11 +4,11 @@ import cats.arrow.FunctionK
 import cats.free.Free
 import cats.~>
 import cats.implicits._
-import freemonads.Algebra.{Op1, Operations}
-import zio.Task
+import freemonads.Algebra.{ Op1, Operations }
+import zio.{ Task, ZIO }
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{Await, Future}
+import scala.concurrent.{ Await, Future }
 import scala.util.Random
 import zio.interop.catz._
 
@@ -39,7 +39,7 @@ object FreeMonads {
   }
 
   def display(ts: Task[String]) = {
-    println(zio.Runtime.default.unsafeRun(ts))
+    println(zio.Runtime.default.run(ts))
   }
 
 }
@@ -81,7 +81,7 @@ object Transformers {
 
   val toTask = new FunctionK[Operations, Task] {
     override def apply[A](fa: Operations[A]): Task[A] = fa match {
-      case Op1(i) => Task(Impl.op1[A](i))
+      case Op1(i) => ZIO.from(Impl.op1[A](i))
     }
   }
 

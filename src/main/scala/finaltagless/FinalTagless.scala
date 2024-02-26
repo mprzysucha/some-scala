@@ -32,7 +32,7 @@ object FinalTagless {
   }
 
   def display(ts: Task[String]) = {
-    println(zio.Runtime.default.unsafeRun(ts))
+    println(zio.Runtime.default.run(ts))
   }
 
 }

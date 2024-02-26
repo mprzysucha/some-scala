@@ -1,7 +1,5 @@
-/**
-  * @author Michal Przysucha
-  * @since 04.02.2016 00:04:00
-  */
+import scala.language.postfixOps
+
 object Currying {
 
   def abc(a: String)(b: String): Int = {
